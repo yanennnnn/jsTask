@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS學徒班</title>
+</head>
+<body>
+  <a href="#" class="go">跳轉下一頁</a>
+</body>
+<script>
+  const go = document.querySelector('.go')
+  go.addEventListener('click',goTo)
+  function goTo(){
+    window.location = 'nextPage.html';
+  }
+</script>
+</html>
