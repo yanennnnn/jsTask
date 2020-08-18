@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第四十五、四十六關</title>
+</head>
+<body>
+  <h2>第四十五、四十六關</h2>
+  <h3>四十五關第一題</h3>
+  <button class="google">連到 Google</button>
+  <button class="yahoo">連到 Yahoo</button>
+  <h3>四十六關第一題</h3>
+  <button class="google hexTom" data-id="Tom">Tom 推薦六角學院</button>
+  <button class="yahoo hexJhon" data-id="John">John 推薦六角學院</button>
+  <h3>四十六關第二題</h3>
+  <p>location.search.split("=")[1];</p>
+  <script>
+    const google = document.querySelector('.google');
+    const yahoo = document.querySelector('.yahoo');
+    const hexTom = document.querySelector('.hexTom');
+    const hexJhon = document.querySelector('.hexJhon');
+    yahoo.addEventListener('click',goToFirst)
+    google.addEventListener('click',goToFirst)
+    hexTom.addEventListener('click',goToSecond);
+    hexJhon.addEventListener('click',goToSecond);
+    function goToFirst(e){
+      if(e.target.className === 'yahoo'){
+        window.location = 'https://tw.yahoo.com/';
+      }else if(e.target.className === 'google'){
+        window.location = 'https://www.google.com/'
+      }else{
+        console.log('error')
+      }
+    }
+
+    function goToSecond(e){
+      console.log(e.target.dataset.id === 'Tom')
+      let urlName;
+      if(e.target.dataset.id === 'Tom'){
+        urlName = 'Tom';
+      }else if(e.target.dataset.id === 'John'){
+        urlName = 'John';
+      }else{
+        console.log('error');
+      }
+      window.location = `https://www.hexschool.com/?recommend=${urlName}`
+    }
+  </script>
+</body>
+</html>

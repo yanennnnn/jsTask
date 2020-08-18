@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <title>第四十八關</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row mt-5 align-items-center flex-column">
+      <div class="col-4">
+        <div class="list-group flex-row" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action active" id="list-login-list" data-toggle="list" href="#list-login" role="tab" aria-controls="login">登入</a>
+          <a class="list-group-item list-group-item-action" id="list-signin-list" data-toggle="list" href="#list-signin" role="tab" aria-controls="signin">註冊</a>
+        </div>
+      </div>
+      <div class="col-7">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active border border-primary p-3 rounded" id="list-login" role="tabpanel" aria-labelledby="list-login-list">
+              <div class="form-group">
+                <label for="loginEmail">Email address</label>
+                <input type="email" class="form-control email" id="loginEmail" aria-describedby="emailHelp" required>
+                <small class="singIntextEmail text-danger"></small>
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" class="form-control password" id="loginPassword" required>
+                <small class="singIntext text-danger"></small>
+              </div>
+              <button type="button" class="btn btn-primary" id="loginBtn">登入</button>
+          </div>
+          <div class="tab-pane fade border border-secondary p-3 rounded" id="list-signin" role="tabpanel" aria-labelledby="list-signin-list">
+              <div class="form-group">
+                <label for="signinEmail">Email address</label>
+                <input type="email" class="form-control" id="signinEmail" aria-describedby="emailHelp" required>
+                <small class="singIntextEmail text-danger"></small>
+              </div>
+              <div class="form-group">
+                <label for="signinPassword">Password</label>
+                <input type="password" class="form-control" id="signinPassword" required>
+                <small class="singIntext text-danger"></small>
+              </div>
+              <button type="submit" id="signinBtn" class="btn btn-primary">註冊</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="getRes text-center"></p>
+  </div>
+ 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const loginList =document.querySelector('#list-login-list');
+    const loginEmail = document.querySelector('#loginEmail');
+    const loginPassword = document.querySelector('#loginPassword');
+    const loginBtn = document.querySelector('#loginBtn');
+    const signinList =document.querySelector('#list-signin-list');
+    const signinEmail = document.querySelector('#signinEmail');
+    const signinPassword = document.querySelector('#signinPassword');
+    const signinBtn = document.querySelector('#signinBtn')
+    const getRes = document.querySelector('.getRes')
+    loginList.addEventListener('click',nullRes);
+    signinList.addEventListener('click',nullRes);
+    signinEmail.addEventListener('input', getEmailMatch)
+    loginEmail.addEventListener('input', getEmailMatch)
+    loginPassword.addEventListener('input', getPassworMatch)
+    loginBtn.addEventListener('click',getLogin)
+    signinBtn.addEventListener('click',getSignin)
+
+
+    function nullRes(){
+      getRes.innerText = '';
+
+    }
+    function getLogin(){
+      const email = loginEmail.value;
+      const password = loginPassword.value;
+      const data = {
+        email: email,
+        password: password
+      }
+      axios.post('https://hexschool-tutorial.herokuapp.com/api/signin', data)
+        .then((res) => {
+          if(res.data.success){ 
+            console.log(res);
+            getRes.innerHTML = res.data.message
+            getRes.classList.remove('text-danger')
+            getRes.classList.add('text-success')
+            loginEmail.value = '';
+            loginPassword.value = '';
+          }else{
+            getRes.innerHTML = res.data.message
+            getRes.classList.remove('text-success')
+            getRes.classList.add('text-danger')
+          }
+         
+        })
+    }
+    function getSignin(){
+      const email =signinEmail.value;
+      const password = signinPassword.value;
+      if(password===''){
+        document.querySelectorAll('.singIntext')[1].innerText='不得為空'
+        return
+      }else if(!password.match(/(?=.*?[A-Za-z])(?=.*?[0-9])[a-zA-Z0-9]/)){
+        document.querySelectorAll('.singIntext')[1].innerText='需要英數交雜'
+        return
+      }else{
+        document.querySelectorAll('.singIntext')[1].innerText=''
+      }
+      const data = {
+        email: email,
+        password: password
+      }
+      axios.post('https://hexschool-tutorial.herokuapp.com/api/signup', data)
+        .then((res) => {
+          console.log(res);
+          if(res.data.success){
+            getRes.innerHTML = res.data.message
+            getRes.classList.remove('text-danger')
+            getRes.classList.add('text-success')
+            signinEmail.value = '';
+            signinPassword.value = '';
+          }else{
+            getRes.innerHTML = res.data.message
+            getRes.classList.remove('text-success')
+            getRes.classList.add('text-danger')
+          }
+        })
+    }
+
+    function getEmailMatch(e){
+      let email = loginEmail.value;
+      let emailText = document.querySelectorAll('.singIntextEmail')[0]
+      if(e.target.id === 'signinEmail'){
+        email = signinEmail.value;
+        emailText = document.querySelectorAll('.singIntextEmail')[1]
+      }
+      console.log(e.target.id);
+      if(email === ''){
+        emailText.innerText='Email 不得為空'
+        return
+      }else if(!email.match(/@/)){
+        emailText.innerText='Email 需要包含 @'
+        return
+      }else if(!email.match(/[.]+/)){
+        emailText.innerText='Email 格式不正確'
+        return
+      }else{
+        emailText.innerText=''
+      }
+      
+    }
+
+    function  getPassworMatch(){
+      const password = signinPassword.value;
+      
+    }
+  </script>
+</body>
+</html>
