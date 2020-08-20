@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>第四十九、五十關</title>
+  <title>第五一、五二關</title>
   <style>
     .card{
       box-shadow: 1px 1px 3px rgba(158, 158, 158, 0.6);
@@ -13,15 +13,16 @@
     .bg-cover{
       background-size: cover;
       background-position: center center;
-      height: 200px;
+      height: 300px;
+      background-color: rosybrown;
     }
   </style>
 </head>
 <body>
   <div class="container mt-5">
-    <ul class="list list-unstyled d-flex flex-wrap">
-
-    </ul>
+    <div class="row targetRoom">
+      
+    </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -29,31 +30,50 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <script>
-    const list = document.querySelector('.list');
+    const targetRoom = document.querySelector('.targetRoom');
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: 'Bearer ZB0LjHMbZlbFBIEyazxg63gLCx46BoPzkOK3lm3PAdxOfWfP78ejlwXxIvtE',
     };
-    axios.get('https://challenge.thef2e.com/api/thef2e2019/stage6/rooms',{headers})
+    const roomId = location.search.split("=")[1];
+    axios.get(`https://challenge.thef2e.com/api/thef2e2019/stage6/room/${roomId}`,{headers})
       .then((res) => {
         console.log(res);
-        rander(res);
+        rander(res.data);
       })
       function rander(res){
+        const item = JSON.parse(JSON.stringify(res))
         let str = '';
-        res.data.items.forEach((item) => {
-          str += `
-          <div class="card h-100 my-4 mx-3" style="width: 18rem;">
-            <div class="bg-cover" style="background-image:url('${item.imageUrl}')"></div>
-            <div class="card-body">
-              <h5 class="card-title">${item.name}</h5>
-              <a href="room.html?roomId=${item.id}" class="getTarget btn btn-secondary ml-auto d-block text-decroation-none">more</a>
-            </div>
+        // res.data.items.forEach((item) => {
+        //   str += `
+        //   <div class="card h-100 my-4 mx-3" style="width: 18rem;">
+        //     <div class="bg-cover" style="background-image:url('${item.imageUrl}')"></div>
+        //     <div class="card-body">
+        //       <h5 class="card-title">${item.name}</h5>
+        //       <a href="room.html?roomId=${item.id}" class="getTarget btn btn-secondary ml-auto d-block text-decroation-none">more</a>
+        //     </div>
+        //   </div>
+        //   `
+        // })
+        targetRoom.innerHTML = `
+        <div class="col-4">
+          <div class="bg-cover" style="background-image:url('${item.room[0].imageUrl[0]}')"></div>
+        </div>
+        <div class="col-8">
+          <h1>${item.room[0].name}</h1>
+          <p>
+            ${item.room[0].description}
+          </p>
+          <div>
+          <span class="d-block">
+          check-in:${item.room[0].checkInAndOut.checkInEarly}~${item.room[0].checkInAndOut.checkInLate} / check-out:${item.room[0].checkInAndOut.checkOut}
+          </span>
+          <span class="d-block">Weekday(Mon - Thu):$${item.room[0].normalDayPrice} / Weekend(Fri - Sun):$${item.room[0].holidayPrice}</span>
           </div>
-          `
-        })
-        list.innerHTML = str;
+        </div>
+        
+        `;
       }
   </script>
 </body>
