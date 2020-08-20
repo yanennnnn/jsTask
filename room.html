@@ -7,9 +7,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>第五一、五二關</title>
   <style>
-    .card{
-      box-shadow: 1px 1px 3px rgba(158, 158, 158, 0.6);
-    }
     .bg-cover{
       background-size: cover;
       background-position: center center;
@@ -44,18 +41,6 @@
       })
       function rander(res){
         const item = JSON.parse(JSON.stringify(res))
-        let str = '';
-        // res.data.items.forEach((item) => {
-        //   str += `
-        //   <div class="card h-100 my-4 mx-3" style="width: 18rem;">
-        //     <div class="bg-cover" style="background-image:url('${item.imageUrl}')"></div>
-        //     <div class="card-body">
-        //       <h5 class="card-title">${item.name}</h5>
-        //       <a href="room.html?roomId=${item.id}" class="getTarget btn btn-secondary ml-auto d-block text-decroation-none">more</a>
-        //     </div>
-        //   </div>
-        //   `
-        // })
         targetRoom.innerHTML = `
         <div class="col-4">
           <div class="bg-cover" style="background-image:url('${item.room[0].imageUrl[0]}')"></div>
