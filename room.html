@@ -10,7 +10,7 @@
     .bg-cover{
       background-size: cover;
       background-position: center center;
-      height: 300px;
+      height: 400px;
       background-color: rosybrown;
     }
   </style>
@@ -51,10 +51,52 @@
             ${item.room[0].description}
           </p>
           <div>
-          <span class="d-block">
-          check-in:${item.room[0].checkInAndOut.checkInEarly}~${item.room[0].checkInAndOut.checkInLate} / check-out:${item.room[0].checkInAndOut.checkOut}
-          </span>
-          <span class="d-block">Weekday(Mon - Thu):$${item.room[0].normalDayPrice} / Weekend(Fri - Sun):$${item.room[0].holidayPrice}</span>
+            <span class="d-block">
+            check-in:${item.room[0].checkInAndOut.checkInEarly}~${item.room[0].checkInAndOut.checkInLate} / check-out:${item.room[0].checkInAndOut.checkOut}
+            </span>
+            <span class="d-block">Weekday(Mon - Thu):$${item.room[0].normalDayPrice} / Weekend(Fri - Sun):$${item.room[0].holidayPrice}</span>
+          </div>
+          <div class="mt-5">
+            <h4>Room Service</h4>
+            <div class="row">
+              <div class="col-3">
+                <p>冷氣 : <span class="${item.room[0].amenities['Air-Conditioner'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Air-Conditioner']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>早餐 : <span class="${item.room[0].amenities['Breakfast'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Breakfast']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>親子友善 : <span class="${item.room[0].amenities['Child-Friendly'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Child-Friendly']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>風景 : <span class="${item.room[0].amenities['Great-View'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Great-View']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>酒水 : <span class="${item.room[0].amenities['Mini-Bar'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Mini-Bar']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>寵物友善 : <span class="${item.room[0].amenities['Pet-Friendly'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Pet-Friendly']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>冰箱 : <span class="${item.room[0].amenities['Refrigerator'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Refrigerator']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>客房服務 : <span class="${item.room[0].amenities['Room-Service'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Room-Service']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>禁菸 : <span class="${item.room[0].amenities['Smoke-Free'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Smoke-Free']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>沙發 : <span class="${item.room[0].amenities['Sofa'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Sofa']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>電視 : <span class="${item.room[0].amenities['Television'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Television']? 'Y' : 'N'}</span></p>
+              </div>
+              <div class="col-3">
+                <p>Wi-Fi : <span class="${item.room[0].amenities['Wi-Fi'] ? 'text-success' : 'text-danger' }">${item.room[0].amenities['Wi-Fi']? 'Y' : 'N'}</span></p>
+              </div>
+            </div>
+            
           </div>
         </div>
         
